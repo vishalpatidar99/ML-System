@@ -5,7 +5,7 @@ To install the ML-System repository, follow these steps:
 1. Clone the git repository:
     ```sh
     git clone https://github.com/vishalpatidar99/ML-System.git
-    cd ML-system
+    cd ML-System
     ```
 
 2. Build and start the server using Docker Compose:
