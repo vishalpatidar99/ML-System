@@ -7,7 +7,7 @@ import grpc
 sys.path.append(os.getcwd() + "/protos/compiled")
 
 from protos.compiled import ml_system_pb2, ml_system_pb2_grpc
-from src import ml, action, status
+from src import ml
 
 address = "0.0.0.0"
 port = 50052
@@ -27,33 +27,6 @@ class MlSystemServicer(ml_system_pb2_grpc.MlSystemServicer):
             context.set_code(error_message)
             logging.error(error_message)
             return ml_system_pb2.JobExecutionOutput()
-        
-    def ActionReq(self, request, context):
-        try:
-            logging.info("Job action request recieved")
-            result, checksum = action.perform_actoin(request.action)
-            logging.info("Ml job executed")
-            return ml_system_pb2.ActionOutput(acknowledgement=result, checksum=checksum)
-        except Exception as e:
-            error_message = f"Error on performing action on job: {e}"
-            context.set_code(grpc.StatusCode.INVALID_ARGUMENT)
-            context.set_code(error_message)
-            logging.error(error_message)
-            return ml_system_pb2.ActionOutput()
-        
-        
-    def HealthcheckReq(self, request, context):
-        try:
-            logging.info("Health Check request recieved")
-            result = status.fetch_status()
-            logging.info("Ml job executed")
-            return ml_system_pb2.HealthCheckOutout(status=result)
-        except Exception as e:
-            error_message = f"Error on checking status of ML system: {e}"
-            context.set_code(grpc.StatusCode.INVALID_ARGUMENT)
-            context.set_code(error_message)
-            logging.error(error_message)
-            return ml_system_pb2.HealthCheckOutout()
 
 
 def run_grpc_server(address, port):
