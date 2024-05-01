@@ -15,7 +15,7 @@ To install the ML-System repository, follow these steps:
 
 ### Obtaining Access Token
 
-To obtain an access token for authentication, import the following cURL request into Postman:
+To obtain an access token for authentication, import the following curl request into Postman:
 
 ```sh
 curl --location 'http://127.0.0.1:8000/oauth/token/' \
