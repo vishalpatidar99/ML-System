@@ -1,0 +1,32 @@
+syntax = "proto3";
+
+message HealthCheckInput {}
+
+message HealthCheckOutout{
+    string status = 1;
+}
+
+message JobExecutionInput {
+    string model_content = 1;
+}
+
+message JobExecutionOutput {
+    string result = 1;
+}
+
+message ActionInput {
+    string action = 1;
+}
+
+message ActionOutput {
+    string acknowledgement = 1;
+    bytes checksum = 2;
+}
+
+service MlSystem {
+
+    // New Procedures
+    rpc HealthcheckReq(HealthCheckInput) returns (HealthCheckOutout) {}
+    rpc ActionReq(ActionInput) returns (ActionOutput) {}
+    rpc JobExecutionReq(JobExecutionInput) returns (JobExecutionOutput) {}
+}
